@@ -1,0 +1,132 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-success" (click)="openModal()">
+  <i class="bi bi-plus-circle-fill"></i>
+  Nouveau Livre
+</button>
+<!-- Modal -->
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ display: display }">
+  <div class="modal-dialog" role="document" style="width: 800px">
+    <div class="modal-content">
+      <div class="modal-body">
+        <template *ngTemplateOutlet="formLivre"></template>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="closeModal()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Form -->
+<ng-template #formLivre>
+  <form (ngSubmit)="ajoutlivre()" class="row">
+    <!-- Left Column -->
+    <div class="col-md-6">
+      <div class="mb-3">
+        <input
+          type="text"
+          class="form-control"
+          id="reference"
+          name="reference"
+          placeholder="référence"
+          [(ngModel)]="livres.isbn"
+        />
+      </div>
+      <div class="mb-3">
+        <input
+          type="text"
+          class="form-control"
+          id="titre"
+          name="titre"
+          placeholder="Titre"
+          [(ngModel)]="livres.titre"
+        />
+      </div>
+
+      <!-- Add more fields as needed for the left column -->
+
+      <div class="mb-3">
+        <input
+          type="number"
+          class="form-control"
+          id="annedition"
+          name="annedition"
+          placeholder="Anne Edition"
+          [(ngModel)]="livres.annedition"
+        />
+      </div>
+      <div class="mb-3">
+        <input
+          type="number"
+          class="form-control"
+          id="prix"
+          name="prix"
+          placeholder="Prix"
+          [(ngModel)]="livres.prix"
+        />
+      </div>
+      <div class="mb-3">
+        <input
+          type="number"
+          class="form-control"
+          id="qtestock"
+          name="qtestock"
+          placeholder="Quantité Stock"
+          [(ngModel)]="livres.qtestock"
+        />
+      </div>
+    </div>
+
+    <!-- Right Column -->
+    <div class="col-md-6">
+      <file-pond #myPond [options]="pondOptions"></file-pond>
+
+      <div class="mb-3">
+        Auteurs:
+        <select
+          name="auteurs"
+          class="form-control"
+          [(ngModel)]="livres.auteurs"
+          multiple
+        >
+          <option *ngFor="let sd of auteurs" [value]="sd._id">
+            {{ sd.nomauteur }}
+          </option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        Maison Edition:
+        <select
+          name="editeurs"
+          class="form-control"
+          [(ngModel)]="livres.maised"
+        >
+          <option *ngFor="let sd of editeurs" value="{{ sd._id }}">
+            {{ sd.maisonedit }}
+          </option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        Specialite:
+        <select
+          name="Specialite"
+          class="form-control"
+          [(ngModel)]="livres.specialite"
+        >
+          <option *ngFor="let sd of specialite" value="{{ sd._id }}">
+            {{ sd.nomspecialite }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <button type="submit" class="btn btn-success" (click)="ajoutlivre()">
+        Enregistrer
+      </button>
+    </div>
+  </form>
+</ng-template>

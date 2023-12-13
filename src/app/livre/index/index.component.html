@@ -1,0 +1,76 @@
+<div class="container">
+  <app-create></app-create>
+  <br />
+  <br />
+  <mat-progress-bar
+    mode="indeterminate"
+    *ngIf="displayProgressBar"
+  ></mat-progress-bar>
+  <table
+    mat-table
+    [dataSource]="livres"
+    class="mat-elevation-z8"
+    #mytable
+    matSort
+  >
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns"></tr>
+
+    <ng-container matColumnDef="couverture">
+      <th mat-header-cell *matHeaderCellDef>couverture</th>
+      <td mat-cell *matCellDef="let t">
+        <img src="{{ t.couverture }}" alt="" width="80" height="80" />
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="titre">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom Auteur</th>
+      <td mat-cell *matCellDef="let t">{{ t.titre }}</td>
+    </ng-container>
+    <ng-container matColumnDef="annedition">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>annedition</th>
+      <td mat-cell *matCellDef="let t">{{ t.annedition }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="auteursId">
+      <th mat-header-cell *matHeaderCellDef>Auteurs</th>
+      <td mat-cell *matCellDef="let element">
+        <span *ngFor="let t of element.auteurs; let last = last">
+          {{ t.nomauteur }}
+          <br *ngIf="!last" />
+        </span>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="maisedId">
+      <th mat-header-cell *matHeaderCellDef>Maison</th>
+      <td mat-cell *matCellDef="let row">{{ row.maised?.maisonedit }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="specialiteId">
+      <th mat-header-cell *matHeaderCellDef>specialite</th>
+      <td mat-cell *matCellDef="let row">
+        {{ row.specialite?.nomspecialite }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="_id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
+
+      <td mat-cell *matCellDef="let t">
+        <app-view [liverId]="t._id"></app-view>
+
+        <button
+          type="button"
+          class="btn btn-default"
+          (click)="openDeleteModal(t._id)"
+        >
+          <i class="bi bi-trash-fill" style="color: red"></i>
+        </button>
+        <app-edit [liverID]="t._id"></app-edit>
+      </td>
+    </ng-container>
+  </table>
+  <mat-paginator
+    [pageSize]="5"
+    [pageSizeOptions]="[5, 10, 20]"
+    showFirstLastButtons
+  ></mat-paginator>
+</div>

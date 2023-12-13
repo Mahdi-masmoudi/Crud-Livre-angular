@@ -1,0 +1,5 @@
+.form-signin {
+  max-width: 400px; /* Ajoutez une largeur maximale au formulaire */
+  margin: auto; /* Centrez le formulaire horizontalement */
+  text-align: center; /* Centrez le texte dans le formulaire */
+}

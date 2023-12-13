@@ -1,0 +1,79 @@
+<!-- Button trigger modal -->
+<button class="btn btn-default" (click)="openModal()">
+  <i class="bi bi-pencil-square" style="color: blue"></i>
+</button>
+<!-- Modal -->
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ display: display }">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Modification Editeur</h4>
+
+        <button
+          type="button"
+          class="btn btn-default"
+          aria-
+          label="Close"
+          (click)="closeModal()"
+        >
+          <span aria- hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <template *ngTemplateOutlet="formProduct"></template>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="closeModal()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Form -->
+<ng-template #formProduct>
+  <form (ngSubmit)="updateediteur()">
+    <div class="mb-3">
+      <input
+        required
+        minlength="4"
+        #designation="ngModel"
+        type="text"
+        class="form-control"
+        id="designation"
+        name="Maison Edit"
+        placeholder="Maison*"
+        [(ngModel)]="editeur.maisonedit"
+      />
+      <br />
+      <input
+        required
+        minlength="4"
+        #designation="ngModel"
+        type="text"
+        class="form-control"
+        id="designation"
+        name="Email"
+        placeholder="Email *"
+        [(ngModel)]="editeur.email"
+      /><br />
+      <input
+        required
+        minlength="4"
+        #designation="ngModel"
+        type="text"
+        class="form-control"
+        id="designation"
+        name="Site Web"
+        placeholder="siteweb *"
+        [(ngModel)]="editeur.siteweb"
+      />
+    </div>
+
+    <div>
+      <button type="submit" class="btn btn-success" (clic)="updateediteur()">
+        Enregistrer
+      </button>
+    </div>
+  </form>
+</ng-template>
